@@ -2,31 +2,37 @@
 
 @section('content')
 <div class="container">
-    <h1>Create User</h1>
+    <h1>Posts</h1>
+    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary mb-3">Add Post</a>
     
-    <form action="{{ route('admin.users.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select class="form-control" id="role" name="role" required>
-                <option value="admin">Admin</option>
-                <option value="author">Author</option>
-                <option value="user">User</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
+    @endif
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($posts as $post)
+                <tr>
+                    <td>{{ $post->title }}</td>
+                    <td>
+                        <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection
