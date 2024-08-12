@@ -15,6 +15,12 @@ use App\Http\Controllers\PostController;
 |
 */
 Route::resource('posts', PostController::class);
+Route::middleware(['admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::resource('users', UserController::class);
+    Route::resource('posts', PostController::class);
+});
+
 
 Route::get('/', function () {
     return view('welcome');
