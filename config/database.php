@@ -33,7 +33,14 @@ return [
     |
     */
 
+
     'connections' => [
+
+        'mongodb' => [
+            'driver'   => 'mongodb',
+            'dsn'      => env('MONGODB_CONNECTION').'://'.env('MONGODB_HOST').':'.env('MONGODB_PORT'),
+            'database' => env('MONGODB_DATABASE'),
+        ],
 
         'sqlite' => [
             'driver' => 'sqlite',
@@ -42,6 +49,7 @@ return [
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
+    
 
         'mysql' => [
             'driver' => 'mysql',
@@ -62,6 +70,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+    
 
         'pgsql' => [
             'driver' => 'pgsql',
