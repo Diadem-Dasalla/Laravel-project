@@ -2,37 +2,19 @@
 
 @section('content')
 <div class="container">
-    <h1>Posts</h1>
-    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary mb-3">Add Post</a>
+    <h1>Create Post</h1>
     
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+    <form action="{{ route('admin.posts.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
         </div>
-    @endif
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($posts as $post)
-                <tr>
-                    <td>{{ $post->title }}</td>
-                    <td>
-                        <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
 </div>
 @endsection
