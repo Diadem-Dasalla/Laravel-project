@@ -25,6 +25,22 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('posts', PostController::class);
 });
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+    Route::get('users', [Admin\UserController::class, 'index']);
+    Route::get('users/create', [Admin\UserController::class, 'create']);
+    Route::post('users', [Admin\UserController::class, 'store']);
+    Route::get('users/{user}/edit', [Admin\UserController::class, 'edit']);
+    Route::put('users/{user}', [Admin\UserController::class, 'update']);
+    Route::delete('users/{user}', [Admin\UserController::class, 'destroy']);
+
+    Route::get('posts', [Admin\PostController::class, 'index']);
+    Route::get('posts/create', [Admin\PostController::class, 'create']);
+    Route::post('posts', [Admin\PostController::class, 'store']);
+    Route::get('posts/{post}/edit', [Admin\PostController::class, 'edit']);
+    Route::put('posts/{post}', [Admin\PostController::class, 'update']);
+    Route::delete('posts/{post}', [Admin\PostController::class, 'destroy']);
+});
+
 
 
 Route::get('/', function () {
