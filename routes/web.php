@@ -14,6 +14,11 @@ use App\Http\Controllers\PostController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+    Route::get('users', [Admin\UserController::class, 'index']);
+    Route::resource('posts', Admin\PostController::class);
+});
+
 Route::resource('posts', PostController::class);
 Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
