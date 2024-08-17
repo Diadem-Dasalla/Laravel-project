@@ -16,6 +16,14 @@
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
+    <div class="form-group">
+        <label for="role">Role</label>
+        <select name="role" id="role" class="form-control">
+            @foreach($roles as $role)
+                <option value="{{ $role->name }}">{{ $role->name }}</option>
+            @endforeach
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 @endsection
