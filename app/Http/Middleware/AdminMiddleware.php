@@ -15,12 +15,13 @@ class AdminMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
+
+
     public function handle(Request $request, Closure $next)
     {
         // Check if the authenticated user has an 'admin' role
-        if (Auth::check() && Auth::user()->role !== 'admin') {
-            // If the user is not an admin, redirect to the home page
-            return redirect('/');
+        if (auth()->user() && auth()->user()->role === 'admin') {
+            return $next($request);
         }
 
         // If the user is an admin, allow the request to proceed
