@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Role; // Ensure you import the Role model
 
 class RegisterController extends Controller
 {
@@ -72,4 +73,15 @@ class RegisterController extends Controller
             'role' => $data['role'], // Assign the role, defaulting to 'user' if none is provided
         ]);
     }
+
+    
+
+    public function showRegistrationForm()
+    {
+        // Fetch roles for the dropdown
+        $roles = Role::all();
+
+        return view('auth.register', compact('roles'));
+    }
+
 }
