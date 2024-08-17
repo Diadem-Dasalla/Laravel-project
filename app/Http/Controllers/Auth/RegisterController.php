@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'] ?? 'user', // Assign the role, defaulting to 'user' if none is provided
+            'role' => $data['role'], // Assign the role, defaulting to 'user' if none is provided
         ]);
     }
 }
