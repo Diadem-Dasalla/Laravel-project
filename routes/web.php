@@ -41,6 +41,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::delete('posts/{post}', [Admin\PostController::class, 'destroy']);
 });
 
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::resource('admin/users', Admin\UserController::class);
+    Route::resource('admin/posts', Admin\PostController::class);
+});
+
+
 
 
 Route::get('/', function () {
