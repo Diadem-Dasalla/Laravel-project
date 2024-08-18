@@ -1,16 +1,12 @@
-<form method="POST" action="{{ route('register') }}">
-    @csrf
+@php
+$roles = App\Models\Role::all();
+@endphp
 
-    <!-- Other form fields -->
-
-    <div class="form-group">
-        <label for="role">Role</label>
-        <select name="role" id="role" class="form-control">
-            @foreach($roles as $role)
-                <option value="{{ $role->name }}">{{ $role->name }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+<div class="form-group">
+    <label for="role">Role</label>
+    <select id="role" name="role" class="form-control">
+        @foreach ($roles as $role)
+            <option value="{{ $role->id }}">{{ $role->name }}</option>
+        @endforeach
+    </select>
+</div>
